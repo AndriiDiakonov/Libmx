@@ -2,9 +2,9 @@ LIBNAME = libmx.a
 
 FLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic
 
-all: _OBJ LIBMX building_library
+all: create_obj LIBMX building_library
 
-_OBJ:
+create_obj:
 	mkdir obj
 
 LIBMX:

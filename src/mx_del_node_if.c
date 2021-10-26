@@ -1,30 +1,22 @@
 #include "../inc/libmx.h"
 
-t_list *mx_del_node_if(t_list **list, void *del_data, bool (*cmp)(void *a, void *b)) {
-    t_list *buff, *pbuff = *list;
-    if ((buff = (*list) -> next)) {
-        while (buff -> next) {
-            if (cmp(buff -> data, del_data)) {
-                pbuff -> next = buff -> next;
-                free(buff);
-                buff = pbuff -> next;
+void mx_del_node_if(t_list **list, void *del_data, bool (*cmp)(void *a, void *b)) {
+    if (cmp == NULL || *list == NULL || list == NULL || del_data == NULL) return;
+    t_list *temp = *list, *helper = *list;
+    while (temp) {
+        if (cmp(temp -> data, del_data)) {
+            if (*list == temp) {
+                *list = temp -> next;
+                free(temp);
+                temp = *list;
+                continue;
             }
-            else {
-                pbuff = pbuff -> next;
-                buff = buff -> next;
-            }
+            helper -> next = temp -> next;
+            free(temp);
+            temp = helper -> next;
+            return;
         }
-        if (cmp(buff -> data, del_data)) {
-            pbuff -> next = NULL;
-            free(buff);
-        }
-        buff = *list;
-        if (cmp(buff -> data, del_data)) {
-            (*list) = (*list) -> next;
-            free(buff);
-        }
+        helper = temp;
+        temp = temp -> next;
     }
-    else
-        if (cmp(pbuff -> data, del_data))
-            free(*list);
 }

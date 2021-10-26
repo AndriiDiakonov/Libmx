@@ -1,6 +1,6 @@
 #include "../inc/libmx.h"
 
-int mx_read_line(char **lineptr, int buf_size, char delim, const int fd) {
+int mx_read_line(char **lineptr, size_t buf_size, char delim, const int fd) {
     if (fd < 0)
         return -2;
 
@@ -31,8 +31,11 @@ int mx_read_line(char **lineptr, int buf_size, char delim, const int fd) {
 
         bytes++;
     }
+
     (*lineptr) = (char *) mx_realloc(*lineptr, bytes + 1);
+
     size_t free_bytes = malloc_size((*lineptr)) - bytes;
     mx_memset(&(*lineptr)[bytes], '\0', free_bytes);
+
     return bytes + 1;
 }

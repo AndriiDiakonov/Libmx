@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <fcntl.h>
-//#include <malloc/malloc.h>
+#include <malloc/malloc.h>
 
 typedef struct s_list {
     void *data;
@@ -25,7 +25,7 @@ void mx_sort_arr_int(int *arr, int size);
 void mx_pop_index(t_list **list, int index);
 void mx_foreach_list(t_list *list, void(*f)(t_list *node));
 void mx_clear_list(t_list **list);
-t_list mx_del_node_if(t_list **list, void *del_data, bool (*cmp)(void *a, void *b));
+void mx_del_node_if(t_list **list, void *del_data, bool (*cmp)(void *a, void *b));
 int mx_atoi(const char *str);
 void mx_printerr(const char *s);
 int mx_sum_digits(int num);
@@ -73,7 +73,7 @@ char **mx_strsplit(const char *s, char c);
 char *mx_strjoin(const char *s1, const char *s2);
 char *mx_file_to_str(const char *filename);
 char *mx_replace_substr(const char *str, const char *sub, const char *replace);
-int mx_read_line(char **lineptr, int buf_size, char delim, const int fd);
+int mx_read_line(char **lineptr, size_t buf_size, char delim, const int fd);
 void mx_printerr(const char *s);
 
 // Memory pack
